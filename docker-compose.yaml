@@ -1,0 +1,30 @@
+version: '3.10'
+
+services:
+  django_gunicorn_project:
+    volumes:
+      - static:/static
+      - sqllite_db:/django_gunicorn_project_project/db
+      - django_logs:/logs
+    build:
+      context: .
+    expose:
+      - 8000
+    restart: always
+
+  nginx:
+    build: ./nginx
+    volumes:
+      - static:/static #this is to make sure /static requests are routed to the shared volumne on host machine where django static files are stored
+      - nginx_logs:/var/log/nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - django_gunicorn_project
+    restart: always
+
+volumes:
+  static:
+  sqllite_db:
+  django_logs:
+  nginx_logs:

@@ -1,0 +1,7 @@
+Django==5.0.4
+django-otp
+qrcode==8.0
+gunicorn
+djangorestframework==3.15.1
+pillow==10.3.0
+requests==2.31.0
